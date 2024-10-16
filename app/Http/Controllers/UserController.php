@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UsersImport;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -92,5 +94,30 @@ class UserController extends Controller
          $post->delete();
 
         return redirect()->route('users.index')->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    public function user_import(){
+        return view('backend.user.import_user');
+    }
+
+    public function store_user_import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+		// menangkap file excel
+		$file = $request->file('file');
+ 
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		// upload ke folder file_peserta di dalam folder public
+		$file->move('file_peserta',$nama_file);
+ 
+		// import data
+		Excel::import(new UsersImport, public_path('/file_peserta/'.$nama_file));
+ 
+		return redirect()->route('users.index')->with(['success' => 'Data berhasil diimpor!']);
     }
 }

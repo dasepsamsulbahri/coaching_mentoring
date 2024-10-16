@@ -7,20 +7,29 @@ use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Imports\PesertaImport;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class PesertaController extends Controller
 {
     public function index()
     {
-        // $peserta = Peserta::all();
-        $peserta = DB::table('kegiatans')
+        $user = User::find(Auth::user()->id);
+        if ($user->hasRole('Peserta')) {
+            $peserta = DB::table('kegiatans')
             ->join('pesertas', 'kegiatans.id', '=', 'pesertas.id_kegiatan')
+            ->where('nip', '=', Auth::user()->nip)
             ->get();
+        }else{
+            $peserta = DB::table('kegiatans')
+                ->join('pesertas', 'kegiatans.id', '=', 'pesertas.id_kegiatan')
+                ->get();
+        }
+
         return view('backend.peserta.indexPeserta', compact('peserta'));
     }
 

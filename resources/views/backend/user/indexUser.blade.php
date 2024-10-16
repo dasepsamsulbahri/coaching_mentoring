@@ -10,6 +10,9 @@
                     <div class="card-header py-3">
                         <a href="{{route('users.create')}}" class="btn btn-primary btn-sm">
                             <i class="fas fa-user-plus"></i>&nbsp; Add User
+                        </a>&nbsp;
+                        <a href="{{route('user.import')}}" class="btn btn-info btn-sm">
+                            <i class="fas fa-file-import"></i>&nbsp; Import User
                         </a>
                     </div>
                     <div class="card-body">
@@ -42,7 +45,7 @@
                                         <td>{{ $user->name}}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            <img width="90px" src="/storage/mentor/{{ $user->image }}" alt="profile-picture">
+                                            <img width="40px" src="/storage/mentor/{{ $user->image }}" alt="profile-picture">
                                         </td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('users.destroy', $user->id) }}" method="POST">

@@ -43,10 +43,10 @@
             <span>Mentor</span>
         </a>
     </li>
-    <hr class="sidebar-divider">
     @endif
-
+    
     @if (auth()->user()->hasRole(['Super Admin|Admin|Mentor|Peserta']))
+    <hr class="sidebar-divider">
     <div class="sidebar-heading">
         Kegiatan
     </div>
@@ -62,8 +62,8 @@
             <span>Peserta Kegiatan</span>
         </a>
     </li>
-    <hr class="sidebar-divider">
     @endif
+    <hr class="sidebar-divider">
     
     <!-- Heading -->
     @if (auth()->user()->hasRole(['Super Admin|Mentor|Admin']))
@@ -76,8 +76,8 @@
             <span>Cek Laporan</span>
         </a>
     </li>
-    @endif
     <hr class="sidebar-divider">
+    @endif
     
     
     <!-- Divider -->
@@ -93,6 +93,11 @@
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Laporan</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Sertifikat</span></a>
     </li>
     
     <!-- Divider -->

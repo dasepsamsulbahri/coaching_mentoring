@@ -33,6 +33,8 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role:Super 
     Route::get('/role/edit/{id}',[RoleController::class, 'edit'])->name('role.edit');
     Route::post('/role/update',[RoleController::class, 'update'])->name('role.update');
     Route::resource('/mentor', MentorController::class);
+    Route::get('/data-user/import',[UserController::class, 'user_import'])->name('user.import');
+    Route::post('/data-user/import',[UserController::class, 'store_user_import'])->name('user.store_import');
 });
 
 Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role:Super Admin|Admin|Peserta']], function(){

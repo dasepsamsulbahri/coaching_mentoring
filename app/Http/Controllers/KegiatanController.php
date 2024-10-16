@@ -31,9 +31,10 @@ class KegiatanController extends Controller
             ->join('kegiatans', 'users.id', '=', 'kegiatans.id_mentor')
             ->get();
         }else{
-            $kegiatan = DB::table('pesertas')
-            ->join('kegiatans', 'pesertas.id_kegiatan', '=', 'kegiatans.id')
-            ->where('nip', '=', Auth::user()->nip)
+            $kegiatan = DB::table('users')
+            ->join('kegiatans', 'users.id', '=', 'kegiatans.id_mentor')
+            // ->join('pesertas', 'users.nip', '=', 'pesertas.nip')
+            // ->where('nip', '=', Auth::user()->nip)
             ->get();
         }
 

@@ -27,7 +27,11 @@
     <!-- Custom styles for this page -->
     <link href="/assets/templates/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    
+    <style>
+        .table, .btn{
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
