@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\UserController;
@@ -37,10 +38,19 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role:Super 
     Route::post('/data-user/import',[UserController::class, 'store_user_import'])->name('user.store_import');
 });
 
-Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role:Super Admin|Admin|Peserta']], function(){
+Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role:Super Admin|Admin|Mentor|Peserta']], function(){
     Route::resource('/kegiatan', KegiatanController::class);
     Route::resource('/peserta', PesertaController::class);
+
+    //Form submit peserta per orang
     Route::get('/data-peserta/create/{id}', [PesertaController::class, 'create_peserta'])->name('peserta.create_peserta');
+    //Form import peserta banyak
     Route::get('/data-peserta/import',[PesertaController::class, 'import'])->name('peserta.import');
+    //Aksi import peserta
     Route::post('/data-peserta/import',[PesertaController::class, 'store_import'])->name('peserta.store_import');
+
+    Route::get('/laporan-peserta', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan-peserta/create/{id}', [LaporanController::class, 'create'])->name('laporan.create');
+    Route::get('/laporan-peserta/show/{id}', [LaporanController::class, 'show'])->name('laporan.show');
+    Route::post('/laporan-peserta', [LaporanController::class, 'store'])->name('laporan.store');
 });

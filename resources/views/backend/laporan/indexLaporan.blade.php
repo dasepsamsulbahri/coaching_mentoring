@@ -6,14 +6,14 @@
 @extends('backend.layouts.main')
 @section('content')
     <div class="container-fluid">
-        <h1 class="h3 mb-2 text-gray-800">Peserta</h1>
+        <h1 class="h3 mb-2 text-gray-800">Laporan Peserta</h1>
         <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the.</p>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Peserta Kegiatan</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Laporan</h6>
                     </div>
                     <div class="card-body">
                         @if ($message = Session::get('success'))
@@ -29,43 +29,33 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Keg</th>
-                                        {{-- <th>Mentor</th> --}}
+                                        <th>ID Kegiatan</th>
+                                        <th>Nama Peserta</th>
                                         <th>NIP</th>
-                                        <th>Nama</th>
-                                        <th>Uke</th>
-                                        <th>Satker</th>
-                                        <th>Jabatan</th>
-                                        <th>Pangkat/ Gol</th>
-                                        @if (auth()->user()->hasRole(['Super Admin|Admin']))   
+                                        <th>Title</th>
+                                        <th>Descirption</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i=1 ?>
-                                    @forelse ($peserta as $pes)
+                                    @forelse ($laporan as $lap)
                                     <tr>
                                         <td>{{ $i++}}</td>
-                                        <td>{{ $pes->nama_kegiatan}}</td>
-                                        {{-- <td>{{ $pes->name}}</td> --}}
-                                        <td>{{ $pes->nip}}</td>
-                                        <td>{{ $pes->nama_peserta}}</td>
-                                        <td>{{ $pes->unit_kerja}}</td>
-                                        <td>{{ $pes->satuan_kerja}}</td>
-                                        <td>{{ $pes->jabatan}}</td>
-                                        <td>{{ $pes->golongan}}/ {{ $pes->pangkat}}</td>
-                                        @if (auth()->user()->hasRole(['Super Admin|Admin']))
+                                        <td>{{ $lap->id_kegiatan}} - {{$lap->nama_kegiatan}}</td>
+                                        <td>{{ $lap->nama_peserta}}</td>
+                                        <td>{{ $lap->nip}}</td>
+                                        <td>{{ $lap->title}}</td>
+                                        <td>{{ $lap->description}}</td>
+                                        <td>{{ $lap->status}}</td>
                                         <td class="d-flex justify-content-center">
 
-                                            @if (auth()->user()->hasRole(['Peserta']))
-                                            <a href="{{ route('laporan.create', $pes->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-cloud-upload-alt"></i> Laporan
+                                            <a href="{{ route('laporan.show', $lap->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i> Laporan
                                             </a>
-                                            @endif
 
-
-
+                                            @if (auth()->user()->hasRole(['Super Admin|Admin']))
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('peserta.destroy', $pes->id) }}" method="POST">
                                                 <a href="{{ route('peserta.edit', $pes->id) }}" class="btn btn-sm btn-primary">
                                                     <i class="fas fa-user-edit"></i>
@@ -75,8 +65,8 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-user-times"></i></button>
                                             </form>
+                                            @endif
                                         </td>
-                                        @endif
                                     </tr>
                                     @empty
                                     <div class="alert alert-danger">

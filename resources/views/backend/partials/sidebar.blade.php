@@ -71,7 +71,7 @@
         Mentor
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('laporan.index')}}">
             <i class="fas fa-users"></i>
             <span>Cek Laporan</span>
         </a>
@@ -90,12 +90,12 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{route('laporan.index')}}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Laporan</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Sertifikat</span></a>
     </li>

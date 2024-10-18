@@ -13,7 +13,7 @@ class PesertaImport implements ToModel
             'id'            => $row[0],
             'id_kegiatan'   => $row[1],
             'nip'           => $row[2],
-            'name'          => $row[3],
+            'nama_peserta'  => $row[3],
             'unit_kerja'    => $row[4],
             'satuan_kerja'  => $row[5],
             'jabatan'       => $row[6],

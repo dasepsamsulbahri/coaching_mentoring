@@ -17,6 +17,7 @@
                             <label for="staticEmail" class="col-sm-2 col-form-label">NIP</label>
                             <div class="col-sm-4">
                                 <input type="hidden" class="form-control" name="id_kegiatan" value="{{$kegiatan->id}}" >
+                                <input type="hidden" class="form-control" name="id_kegiatan" value="{{$kegiatan->id_mentor}}" >
                                 <input type="text" class="form-control" name="nip" value="{{old('nip')}}">
                                 @error('nip')
                                     &nbsp;<span class="mt-2 badge badge-danger">{{ $message }}</span>
@@ -27,8 +28,8 @@
                             <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" 
-                                name="name" value="{{old('name')}}">
-                                @error('name')
+                                name="nama_peserta" value="{{old('nama_peserta')}}">
+                                @error('nama_peserta')
                                     &nbsp;<span class="mt-2 badge badge-danger">{{ $message }}</span>
                                 @enderror
                             </div>    

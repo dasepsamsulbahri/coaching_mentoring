@@ -24,10 +24,17 @@ class PesertaController extends Controller
             ->join('pesertas', 'kegiatans.id', '=', 'pesertas.id_kegiatan')
             ->where('nip', '=', Auth::user()->nip)
             ->get();
+        }elseif($user->hasRole('Peserta')){
+            $peserta = DB::table('pesertas')
+            ->join('kegiatans', 'pesertas.id_kegiatan', '=', 'kegiatans.id')
+            ->where('id_mentor', '=', Auth::user()->id)
+            // ->join('pesertas', 'users.id', '=', 'pesertas.id_mentor')
+            ->get();
         }else{
-            $peserta = DB::table('kegiatans')
-                ->join('pesertas', 'kegiatans.id', '=', 'pesertas.id_kegiatan')
-                ->get();
+            $peserta = DB::table('pesertas')
+            ->join('kegiatans', 'pesertas.id_kegiatan', '=', 'kegiatans.id')
+            // ->join('pesertas', 'users.id', '=', 'pesertas.id_mentor')
+            ->get();
         }
 
         return view('backend.peserta.indexPeserta', compact('peserta'));
@@ -50,7 +57,8 @@ class PesertaController extends Controller
                 }),
             ],
             'id_kegiatan'       => 'required|numeric',
-            'name'              => 'required',
+            'id_mentor'         => 'required|numeric',
+            'nama_peserta'              => 'required',
             'unit_kerja'        => 'required',
             'satuan_kerja'      => 'required',
             'jabatan'           => 'required',
@@ -60,8 +68,9 @@ class PesertaController extends Controller
 
         Peserta::create([
             'id_kegiatan'   => $request->id_kegiatan,
+            'id_mentor'     => $request->id_mentor,
             'nip'           => $request->nip,
-            'name'          => $request->name,
+            'nama_peserta'  => $request->nama_peserta,
             'unit_kerja'    => $request->unit_kerja,
             'satuan_kerja'  => $request->satuan_kerja,
             'jabatan'       => $request->jabatan,
@@ -113,7 +122,7 @@ class PesertaController extends Controller
     {
         $request->validate([
             'nip'           => 'required',
-            'name'          => 'required',
+            'nama_peserta'          => 'required',
             'unit_kerja'    => 'required',
             'satuan_kerja'  => 'required',
             'jabatan'       => 'required',
@@ -126,7 +135,7 @@ class PesertaController extends Controller
         
         $peserta->update([
             'nip'           => $request->nip,
-            'name'          => $request->name,
+            'nama_peserta'          => $request->nama_peserta,
             'unit_kerja'    => $request->unit_kerja,
             'satuan_kerja'  => $request->satuan_kerja,
             'jabatan'       => $request->jabatan,
