@@ -28,7 +28,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>ID User</th>
+                                        <th>No</th>
                                         <th>NIP</th>
                                         <th>Nama</th>
                                         <th>Email</th>
@@ -40,9 +40,9 @@
                                     <?php $i=1 ?>
                                     @forelse ($user as $user)
                                     <tr>
-                                        <td>{{ $user->id}}</td>
+                                        <td>{{ $i++}}</td>
                                         <td>{{ $user->nip}}</td>
-                                        <td>{{ $user->name}}</td>
+                                        <td>{{ $user->name}} - {{ $user->role_name}}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
                                             <img width="40px" src="/storage/mentor/{{ $user->image }}" alt="profile-picture">

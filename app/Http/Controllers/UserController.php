@@ -7,13 +7,20 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
 {
     public function index(){
-        $user = User::orderBy('name', 'ASC')->paginate(10);
+        // $user = User::orderBy('name', 'ASC')->paginate(10);
+        $user = DB::table('model_has_roles')
+        ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+        ->join('users', 'model_has_roles.model_id', '=', 'users.id')
+        ->select('nip', 'users.*', 'email', 'image', 'roles.name as role_name')
+        ->get();
+
         return view('backend.user.indexUser', compact('user'));
     }
     
