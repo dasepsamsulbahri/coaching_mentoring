@@ -9,13 +9,15 @@ class Laporan extends Model
 {
     use HasFactory;
 
+    protected $table = 'reports';
+
     protected $fillable = [
         'id_peserta',
         'id_kegiatan',
-        'id_mentor',
         'title',
         'description',
         'status',
+        'keterangan',
         'file'
     ];
 }

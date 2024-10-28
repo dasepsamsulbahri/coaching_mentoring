@@ -14,6 +14,16 @@
                     <form action="{{ route('peserta.update', $peserta->id)}}" method="POST">
                         @csrf
                         @method('PUT')
+
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">ID Kegiatan</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" name="id_kegiatan" value="{{$peserta->id_kegiatan}}">
+                                @error('id_kegiatan')
+                                    &nbsp;<span class="mt-2 badge badge-danger">{{ $message }}</span>
+                                @enderror
+                            </div>    
+                        </div>
                         
                         <div class="mb-3 row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">NIP</label>

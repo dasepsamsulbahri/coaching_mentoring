@@ -13,7 +13,10 @@
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Laporan</h6>
+                        <a href="{{route('laporan.index')}}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-arrow-circle-left"></i> Back to Report
+                        </a>
+                        {{-- <h6 class="m-0 font-weight-bold text-primary">Laporan</h6> --}}
                     </div>
                     <div class="card-body">
                         <iframe src="{{asset('/storage/laporan/'.$laporan->file)}}" width="100%" height="1000" frameborder='0'></iframe>

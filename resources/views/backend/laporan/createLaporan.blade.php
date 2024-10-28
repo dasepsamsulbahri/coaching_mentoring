@@ -18,8 +18,8 @@
                             <div class="col-sm-8">
                                 <input type="hidden" class="form-control" name="id_peserta" value="{{$peserta->id}}" >
                                 <input type="hidden" class="form-control" name="id_kegiatan" value="{{$peserta->id_kegiatan}}" >
-                                <input type="hidden" class="form-control" name="id_mentor" value="{{$peserta->id_mentor}}" >
                                 <input type="hidden" class="form-control" name="status" value="Belum diperiksa" >
+                                <input type="hidden" class="form-control" name="keterangan" value="Belum ada keterangan" >
                                 <input type="text" class="form-control" name="title" value="{{old('title')}}">
                                 @error('title')
                                     &nbsp;<span class="mt-2 badge badge-danger">{{ $message }}</span>
@@ -48,7 +48,7 @@
                         </div>
                         
     
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-user-check"></i></button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-check-square"></i></button>
                         <a href="{{route('laporan.index')}}" class="btn btn-sm btn-danger"><i class="fas fa-window-close"></i></a>
                     </form>
                 </div>

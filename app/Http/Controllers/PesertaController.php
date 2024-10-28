@@ -24,15 +24,15 @@ class PesertaController extends Controller
             ->join('pesertas', 'kegiatans.id', '=', 'pesertas.id_kegiatan')
             ->where('nip', '=', Auth::user()->nip)
             ->get();
-        }elseif($user->hasRole('Peserta')){
+        }elseif($user->hasRole('Mentor')){
             $peserta = DB::table('pesertas')
             ->join('kegiatans', 'pesertas.id_kegiatan', '=', 'kegiatans.id')
             ->where('id_mentor', '=', Auth::user()->id)
             // ->join('pesertas', 'users.id', '=', 'pesertas.id_mentor')
             ->get();
         }else{
-            $peserta = DB::table('pesertas')
-            ->join('kegiatans', 'pesertas.id_kegiatan', '=', 'kegiatans.id')
+            $peserta = DB::table('kegiatans')
+            ->join('pesertas', 'kegiatans.id', '=', 'pesertas.id_kegiatan')
             // ->join('pesertas', 'users.id', '=', 'pesertas.id_mentor')
             ->get();
         }
@@ -121,12 +121,13 @@ class PesertaController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         $request->validate([
+            'id_kegiatan'   => 'required',
             'nip'           => 'required',
-            'nama_peserta'          => 'required',
+            'nama_peserta'  => 'required',
             'unit_kerja'    => 'required',
             'satuan_kerja'  => 'required',
             'jabatan'       => 'required',
-            'pangkat'        => 'required',
+            'pangkat'       => 'required',
             'golongan'      => 'required'
         ]);
 
@@ -134,8 +135,9 @@ class PesertaController extends Controller
         $peserta = Peserta::findOrFail($id);
         
         $peserta->update([
+            'id_kegiatan'   => $request->id_kegiatan,
             'nip'           => $request->nip,
-            'nama_peserta'          => $request->nama_peserta,
+            'nama_peserta'  => $request->nama_peserta,
             'unit_kerja'    => $request->unit_kerja,
             'satuan_kerja'  => $request->satuan_kerja,
             'jabatan'       => $request->jabatan,

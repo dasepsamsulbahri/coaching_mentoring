@@ -9,6 +9,7 @@ use App\Http\Controllers\MentorController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CertificateController;
 
 //Authentication
 Route::middleware('guest')->group(function () {
@@ -49,8 +50,12 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role:Super 
     //Aksi import peserta
     Route::post('/data-peserta/import',[PesertaController::class, 'store_import'])->name('peserta.store_import');
 
-    Route::get('/laporan-peserta', [LaporanController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan-peserta/create/{id}', [LaporanController::class, 'create'])->name('laporan.create');
-    Route::get('/laporan-peserta/show/{id}', [LaporanController::class, 'show'])->name('laporan.show');
-    Route::post('/laporan-peserta', [LaporanController::class, 'store'])->name('laporan.store');
+    Route::get('/laporan/create/{id}', [LaporanController::class, 'create_laporan'])->name('laporan.create_laporan');
+    Route::resource('/laporan', LaporanController::class);
+
+    Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
+    Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificates.create');
+    Route::post('/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+    Route::get('/certificates/verify/{id}', [CertificateController::class, 'verify'])->name('certificates.verify');
+    Route::get('/certificates/share/{id}', [CertificateController::class, 'shareQrCode'])->name('certificates.shareQrCode');
 });

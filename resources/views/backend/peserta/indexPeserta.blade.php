@@ -30,14 +30,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Keg</th>
-                                        {{-- <th>Mentor</th> --}}
                                         <th>NIP</th>
                                         <th>Nama</th>
                                         <th>Uke</th>
                                         <th>Satker</th>
                                         <th>Jabatan</th>
                                         <th>Pangkat/ Gol</th>
-                                        @if (auth()->user()->hasRole(['Super Admin|Admin']))   
+                                        @if (auth()->user()->hasRole(['Super Admin|Admin|Peserta']))
                                         <th>Aksi</th>
                                         @endif
                                     </tr>
@@ -48,24 +47,24 @@
                                     <tr>
                                         <td>{{ $i++}}</td>
                                         <td>{{ $pes->nama_kegiatan}}</td>
-                                        {{-- <td>{{ $pes->name}}</td> --}}
                                         <td>{{ $pes->nip}}</td>
                                         <td>{{ $pes->nama_peserta}}</td>
                                         <td>{{ $pes->unit_kerja}}</td>
                                         <td>{{ $pes->satuan_kerja}}</td>
                                         <td>{{ $pes->jabatan}}</td>
                                         <td>{{ $pes->golongan}}/ {{ $pes->pangkat}}</td>
-                                        @if (auth()->user()->hasRole(['Super Admin|Admin']))
-                                        <td class="d-flex justify-content-center">
 
-                                            @if (auth()->user()->hasRole(['Peserta']))
-                                            <a href="{{ route('laporan.create', $pes->id) }}" class="btn btn-sm btn-primary">
+                                        @if (auth()->user()->hasRole(['Peserta']))
+                                        <td class="d-flex justify-content-center">
+                                            <a href="{{ route('laporan.create_laporan', $pes->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fas fa-cloud-upload-alt"></i> Laporan
                                             </a>
-                                            @endif
+                                        </td>
+                                        @endif
 
 
-
+                                        @if (auth()->user()->hasRole(['Super Admin|Admin']))
+                                        <td class="d-flex justify-content-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('peserta.destroy', $pes->id) }}" method="POST">
                                                 <a href="{{ route('peserta.edit', $pes->id) }}" class="btn btn-sm btn-primary">
                                                     <i class="fas fa-user-edit"></i>
@@ -77,6 +76,7 @@
                                             </form>
                                         </td>
                                         @endif
+                                        {{-- @endif --}}
                                     </tr>
                                     @empty
                                     <div class="alert alert-danger">

@@ -29,12 +29,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>ID Kegiatan</th>
+                                        <th>ID-Nama Kegiatan</th>
                                         <th>Nama Peserta</th>
                                         <th>NIP</th>
                                         <th>Title</th>
                                         <th>Descirption</th>
                                         <th>Status</th>
+                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,16 +44,20 @@
                                     @forelse ($laporan as $lap)
                                     <tr>
                                         <td>{{ $i++}}</td>
-                                        <td>{{ $lap->id_kegiatan}} - {{$lap->nama_kegiatan}}</td>
+                                        <td>{{ $lap->id_kegiatan}}-{{$lap->nama_kegiatan}}</td>
                                         <td>{{ $lap->nama_peserta}}</td>
                                         <td>{{ $lap->nip}}</td>
                                         <td>{{ $lap->title}}</td>
                                         <td>{{ $lap->description}}</td>
                                         <td>{{ $lap->status}}</td>
+                                        <td>{{ $lap->keterangan}}</td>
                                         <td class="d-flex justify-content-center">
 
                                             <a href="{{ route('laporan.show', $lap->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-eye"></i> Laporan
+                                                <i class="fas fa-eye"></i>
+                                            </a>&nbsp;
+                                            <a href="{{ route('laporan.edit', $lap->id) }}" class="btn btn-sm btn-info">
+                                                <i class="fas fa-user-edit"></i>
                                             </a>
 
                                             @if (auth()->user()->hasRole(['Super Admin|Admin']))
